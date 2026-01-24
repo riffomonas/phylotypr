@@ -142,7 +142,7 @@ seq_to_base4 <- function(sequence) {
 base4_to_index <- function(base4_str) {
   # I want output to be indexed to start at position 1 rather than 0 so we're
   # adding 1 to all base10 values
-  stats::na.omit(strtoi(base4_str, base = 4) + 1) |> as.numeric()
+  stats::na.omit(strtoi(base4_str, base = 4) + 1) |> as.integer()
 }
 
 
@@ -160,7 +160,7 @@ detect_kmers_across_sequences <- function(sequences, kmer_size = 8) {
   n_sequences <- length(sequences)
   kmer_list <- vector(mode = "list", length = n_sequences)
 
-  for (i in seq_along(1:n_sequences)) {
+  for (i in seq_len(n_sequences)) {
     kmer_list[[i]] <- detect_kmers(sequences[[i]], kmer_size = kmer_size)
   }
 
@@ -195,7 +195,7 @@ calc_genus_conditional_prob <- function(detect_list,
     ncol = n_genera
   )
 
-  for (i in 1:n_sequences) {
+  for (i in seq_len(n_sequences)) {
     kmer_genus_count[detect_list[[i]], genera[i]] <-
       kmer_genus_count[detect_list[[i]], genera[i]] + 1
   }
@@ -212,7 +212,7 @@ calc_genus_conditional_prob <- function(detect_list,
 
 #' @noRd
 genera_str_to_index <- function(string) {
-  factor(string) |> as.numeric()
+  factor(string) |> as.integer()
 }
 
 
@@ -231,10 +231,13 @@ bootstrap_kmers <- function(kmers, kmer_size = 8) {
 
 
 #' @noRd
-#' @importFrom Rfast rowsums
 classify_bs <- function(unknown_kmers, conditional_prob) {
-  probabilities <- Rfast::rowsums(conditional_prob[, unknown_kmers])
-  which.max(probabilities)
+  .Call(
+    "classify_bs_C",
+    unknown_kmers,
+    conditional_prob,
+    PACKAGE = "phylotypr"
+  )
 }
 
 

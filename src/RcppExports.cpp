@@ -24,8 +24,11 @@ BEGIN_RCPP
 END_RCPP
 }
 
+RcppExport SEXP classify_bs_C(SEXP, SEXP);
+
 static const R_CallMethodDef CallEntries[] = {
     {"_phylotypr_calculate_log_probability", (DL_FUNC) &_phylotypr_calculate_log_probability, 3},
+    {"classify_bs_C", (DL_FUNC) &classify_bs_C, 2},
     {NULL, NULL, 0}
 };
 
