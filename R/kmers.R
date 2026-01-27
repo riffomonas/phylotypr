@@ -48,12 +48,11 @@ build_kmer_database <- function(sequences, genera, kmer_size = 8) {
   )
   genera_names <- get_unique_genera(genera)
 
-  return(list(
+  list(
     conditional_prob = cond_prob,
     genera = genera_names
-  ))
+  )
 }
-
 
 
 #' Classify 16S rRNA gene sequence fragment
@@ -117,9 +116,8 @@ classify_sequence <- function(unknown_sequence, database,
 get_all_kmers <- function(x, kmer_size = 8) {
   seq_length <- stringi::stri_length(x)
   n_kmers <- seq_length - kmer_size + 1
-  seq_kmers <- stringi::stri_sub(x, 1:n_kmers, kmer_size:seq_length)
 
-  return(seq_kmers)
+  stringi::stri_sub(x, 1:n_kmers, kmer_size:seq_length)
 }
 
 
@@ -164,7 +162,7 @@ detect_kmers_across_sequences <- function(sequences, kmer_size = 8) {
     kmer_list[[i]] <- detect_kmers(sequences[[i]], kmer_size = kmer_size)
   }
 
-  return(kmer_list)
+  kmer_list
 }
 
 
@@ -220,7 +218,6 @@ genera_str_to_index <- function(string) {
 get_unique_genera <- function(string) {
   factor(string) |> levels()
 }
-
 
 
 #' @noRd

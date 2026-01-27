@@ -11,12 +11,12 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // calculate_log_probability
-NumericMatrix calculate_log_probability(const NumericMatrix& kmer_genus_count, const NumericVector& word_specific_priors, const NumericVector& genus_counts);
+NumericMatrix calculate_log_probability(NumericMatrix& kmer_genus_count, const NumericVector& word_specific_priors, const NumericVector& genus_counts);
 RcppExport SEXP _phylotypr_calculate_log_probability(SEXP kmer_genus_countSEXP, SEXP word_specific_priorsSEXP, SEXP genus_countsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix& >::type kmer_genus_count(kmer_genus_countSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix& >::type kmer_genus_count(kmer_genus_countSEXP);
     Rcpp::traits::input_parameter< const NumericVector& >::type word_specific_priors(word_specific_priorsSEXP);
     Rcpp::traits::input_parameter< const NumericVector& >::type genus_counts(genus_countsSEXP);
     rcpp_result_gen = Rcpp::wrap(calculate_log_probability(kmer_genus_count, word_specific_priors, genus_counts));
