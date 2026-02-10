@@ -140,7 +140,7 @@ seq_to_base4 <- function(sequence) {
 base4_to_index <- function(base4_str) {
   # I want output to be indexed to start at position 1 rather than 0 so we're
   # adding 1 to all base10 values
-  stats::na.omit(strtoi(base4_str, base = 4) + 1) |> as.numeric()
+  stats::na.omit(strtoi(base4_str, base = 4) + 1) |> as.integer()
 }
 
 
@@ -224,14 +224,6 @@ get_unique_genera <- function(string) {
 bootstrap_kmers <- function(kmers, kmer_size = 8) {
   n_kmers <- as.integer(length(kmers) / kmer_size)
   sample(kmers, n_kmers, replace = TRUE)
-}
-
-
-#' @noRd
-#' @importFrom Rfast rowsums
-classify_bs <- function(unknown_kmers, conditional_prob) {
-  probabilities <- Rfast::rowsums(conditional_prob[, unknown_kmers])
-  which.max(probabilities)
 }
 
 

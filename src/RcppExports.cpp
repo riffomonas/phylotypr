@@ -10,6 +10,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// classify_bs
+int classify_bs(const IntegerVector& unknown_kmers, const NumericMatrix& conditional_probs);
+RcppExport SEXP _phylotypr_classify_bs(SEXP unknown_kmersSEXP, SEXP conditional_probsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector& >::type unknown_kmers(unknown_kmersSEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type conditional_probs(conditional_probsSEXP);
+    rcpp_result_gen = Rcpp::wrap(classify_bs(unknown_kmers, conditional_probs));
+    return rcpp_result_gen;
+END_RCPP
+}
 // calculate_log_probability
 NumericMatrix calculate_log_probability(NumericMatrix& kmer_genus_count, const NumericVector& word_specific_priors, const NumericVector& genus_counts);
 RcppExport SEXP _phylotypr_calculate_log_probability(SEXP kmer_genus_countSEXP, SEXP word_specific_priorsSEXP, SEXP genus_countsSEXP) {
@@ -25,6 +37,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_phylotypr_classify_bs", (DL_FUNC) &_phylotypr_classify_bs, 2},
     {"_phylotypr_calculate_log_probability", (DL_FUNC) &_phylotypr_calculate_log_probability, 3},
     {NULL, NULL, 0}
 };

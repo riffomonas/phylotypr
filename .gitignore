@@ -6,6 +6,7 @@
 .httr-oauth
 .DS_Store
 .quarto
+.vscode
 
 trainset19_072023.rdp
 inst/doc

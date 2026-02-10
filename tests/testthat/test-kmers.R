@@ -273,10 +273,6 @@ test_that("Return correct consensus taxonomy and confidence", {
 })
 
 
-
-
-
-
 test_that("Can classify a unknown sequence with a database", {
   kmer_size <- 3
   sequences <- c("ATGCGCTA", "ATGCGCTC", "ATGCGCTC")
